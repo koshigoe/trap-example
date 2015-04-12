@@ -60,3 +60,31 @@ trap ERR
 trap EXIT
 + exit 1
 ```
+
+SIGTERM
+----
+
+```
+$ ./trap-signal.sh
++ trap 'echo trap TERM; exit 1' TERM
++ trap 'echo EXIT' EXIT
++ sleep 5
++ echo ok
+ok
++ echo EXIT
+EXIT
+```
+
+sleep 中に `pkill -f trap-signal.sh` した場合、sleep 完了まで待たされる。
+
+```
+$ ./trap-signal.sh
++ trap 'echo trap TERM; exit 1' TERM
++ trap 'echo EXIT' EXIT
++ sleep 5
+++ echo trap TERM
+trap TERM
+++ exit 1
++ echo EXIT
+EXIT
+```
